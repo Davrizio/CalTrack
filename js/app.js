@@ -101,5 +101,38 @@ class Workout {
     }
 }
 
-const traker = new CalorieTracker();
+class App {
+    constructor() {
+        this._tracker = new CalorieTracker();
 
+    }
+
+    _newItem(type, e) {
+        e.preventDefault();
+    
+        const name = document.getElementById(`${type}-name`);
+        const calories = document.getElementById(`${type}-calories`);
+    
+        // Validate inputs
+        if (name.value === '' || calories.value === '') {
+          alert('Please fill in all fields');
+          return;
+        }
+    
+        if (type === 'meal') {
+          const meal = new Meal(name.value, +calories.value);
+          this._tracker.addMeal(meal);
+        } else {
+          const workout = new Workout(name.value, +calories.value);
+          this._tracker.addWorkout(workout);
+        }
+    
+        name.value = '';
+        calories.value = '';
+    
+        const collapseItem = document.getElementById(`collapse-${type}`);
+        const bsCollapse = new bootstrap.Collapse(collapseItem, {
+          toggle: true,
+        });
+      }
+}
