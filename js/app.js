@@ -16,12 +16,14 @@ class CalorieTracker {
     addMeal(meal) {
         this._meals.push(meal);
         this._totalCalories += meal.calories;
+        this._displayNewMeal(meal);
         this._render();
     }
 
     addWorkout(workout) {
         this._meals.push(workout);
         this._totalCalories -= workout.calories;
+        this._displayNewWorkout(workout);
         this._render();
     }
 
