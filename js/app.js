@@ -80,6 +80,11 @@ class CalorieTracker {
       this._meals.forEach((meal) => this._displayNewMeal(meal));
       this._workouts.forEach((workout) => this._displayNewWorkout(workout));
     }
+
+    savePlan() {
+        Storage.saveCurrentPlan(this._totalCalories,this._meals,this._workouts)
+        this._render();
+    }
   
     // Private Methods //
   
@@ -304,6 +309,11 @@ class CalorieTracker {
   
       localStorage.setItem('workouts', JSON.stringify(workouts));
     }
+
+    static saveCurrentPlan(calories, meals, workouts) {
+        const totals = [calories, meals, workouts]
+        localStorage.setItem(`${new Date}`, JSON.stringify(totals))
+      }
   
     static clearAll() {
       localStorage.removeItem('totalCalories');
@@ -354,6 +364,10 @@ class CalorieTracker {
       document
         .getElementById('limit-form')
         .addEventListener('submit', this._setLimit.bind(this));
+
+      document
+        .getElementById('save-results')
+        .addEventListener('click', this._savePlan.bind(this));
     }
   
     _newItem(type, e) {
@@ -439,6 +453,10 @@ class CalorieTracker {
       const modalEl = document.getElementById('limit-modal');
       const modal = bootstrap.Modal.getInstance(modalEl);
       modal.hide();
+    }
+
+    _savePlan() {
+        this._tracker.savePlan();
     }
   }
   
