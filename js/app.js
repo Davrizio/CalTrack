@@ -4,6 +4,7 @@ class CalorieTracker {
       this._totalCalories = Storage.getTotalCalories(0);
       this._meals = Storage.getMeals();
       this._workouts = Storage.getWorkouts();
+      this._savedPlan = Storage.getSavedPlans();
   
       this._displayCaloriesLimit();
       this._displayCaloriesTotal();
@@ -11,6 +12,7 @@ class CalorieTracker {
       this._displayCaloriesBurned();
       this._displayCaloriesRemaining();
       this._displayCaloriesProgress();
+      this._displayPastResults();
   
       document.getElementById('limit').value = this._calorieLimit;
     }
@@ -82,7 +84,7 @@ class CalorieTracker {
     }
 
     savePlan() {
-        Storage.saveCurrentPlan(this._totalCalories,this._meals,this._workouts)
+        Storage.saveCurrentPlan(this._totalCalories)
         this._render();
     }
   
@@ -201,6 +203,30 @@ class CalorieTracker {
   
       workoutsEl.appendChild(workoutEl);
     }
+
+    _displayPastResults() {
+      const results = localStorage.getItem('savedPlan');
+      const savedPlansEl = document.getElementById('past-results');
+      const savedPlanEl = document.createElement('div');
+      savedPlanEl.classList.add('card', 'my-2');
+      savedPlanEl.innerHTML = `
+      <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between">
+        <h4 class="mx-1">${results[0]}</h4>
+        <div
+          class="fs-1 bg-secondary text-white text-center rounded-2 px-2 px-sm-5"
+        >
+          ${results[1]}
+        </div>
+        <button class="delete btn btn-danger btn-sm mx-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+      `;
+      savedPlansEl.appendChild(savedPlanEl);
+      console.log(localStorage.getItem('savedPlan'))
+    }
   
     _render() {
       this._displayCaloriesTotal();
@@ -292,6 +318,16 @@ class CalorieTracker {
       }
       return workouts;
     }
+
+    static getSavedPlans() {
+        let saved;
+        if (localStorage.getItem('savedPlan') === null) {
+          saved = [];
+        } else {
+          saved = JSON.parse(localStorage.getItem('savedPlan'));
+        }
+        return saved;
+      }
   
     static saveWorkout(workout) {
       const workouts = Storage.getWorkouts();
@@ -310,19 +346,18 @@ class CalorieTracker {
       localStorage.setItem('workouts', JSON.stringify(workouts));
     }
 
-    static saveCurrentPlan(calories, meals, workouts) {
-        const totals = [calories, meals, workouts]
-        localStorage.setItem(`${new Date}`, JSON.stringify(totals))
-      }
+    static saveCurrentPlan(plan) {
+        const plans = Storage.getSavedPlans()
+        plans.push(plan)
+        localStorage.setItem('savedPlan', JSON.stringify(plans))
+    }
   
     static clearAll() {
       localStorage.removeItem('totalCalories');
       localStorage.removeItem('meals');
       localStorage.removeItem('workouts');
-  
-      // If you want to clear the limit
-      // localStorage.clear();
     }
+
   }
   
   class App {
