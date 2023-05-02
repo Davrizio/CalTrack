@@ -12,7 +12,6 @@ class CalorieTracker {
       this._displayCaloriesBurned();
       this._displayCaloriesRemaining();
       this._displayCaloriesProgress();
-      this._displayPastResults();
   
       document.getElementById('limit').value = this._calorieLimit;
     }
@@ -81,6 +80,7 @@ class CalorieTracker {
     loadItems() {
       this._meals.forEach((meal) => this._displayNewMeal(meal));
       this._workouts.forEach((workout) => this._displayNewWorkout(workout));
+      this._savedPlan.forEach((plan) => this._displayPastResults(plan))
     }
 
     savePlan() {
@@ -204,28 +204,23 @@ class CalorieTracker {
       workoutsEl.appendChild(workoutEl);
     }
 
-    _displayPastResults() {
-      const results = localStorage.getItem('savedPlan');
+    _displayPastResults(plan) {
       const savedPlansEl = document.getElementById('past-results');
       const savedPlanEl = document.createElement('div');
       savedPlanEl.classList.add('card', 'my-2');
       savedPlanEl.innerHTML = `
       <div class="card-body">
       <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mx-1">${results[0]}</h4>
+        <h4 class="mx-1">date</h4>
         <div
           class="fs-1 bg-secondary text-white text-center rounded-2 px-2 px-sm-5"
         >
-          ${results[1]}
+          ${plan}
         </div>
-        <button class="delete btn btn-danger btn-sm mx-2">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
       </div>
     </div>
       `;
       savedPlansEl.appendChild(savedPlanEl);
-      console.log(localStorage.getItem('savedPlan'))
     }
   
     _render() {
