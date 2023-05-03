@@ -85,7 +85,7 @@ class CalorieTracker {
 
     savePlan() {
         Storage.saveCurrentPlan(this._totalCalories)
-        this._render();
+        location.reload();
     }
   
     // Private Methods //
@@ -343,7 +343,13 @@ class CalorieTracker {
 
     static saveCurrentPlan(plan) {
         const plans = Storage.getSavedPlans()
-        plans.push(plan)
+        if(plans.length >= 5){
+            plans.shift()
+            plans.push(plan)
+        }else{
+            plans.push(plan)
+        }
+        
         localStorage.setItem('savedPlan', JSON.stringify(plans))
     }
   
