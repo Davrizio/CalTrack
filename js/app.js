@@ -207,16 +207,11 @@ class CalorieTracker {
     _displayPastResults(plan) {
       const savedPlansEl = document.getElementById('past-results');
       const savedPlanEl = document.createElement('div');
-      savedPlanEl.classList.add('card', 'my-2');
+      savedPlanEl.classList.add('col-md-2');
       savedPlanEl.innerHTML = `
+      <div class="card bg-light">
       <div class="card-body">
-      <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mx-1">date</h4>
-        <div
-          class="fs-1 bg-secondary text-white text-center rounded-2 px-2 px-sm-5"
-        >
-          ${plan}
-        </div>
+        <div class="fs-1 bg-primary text-white text-center rounded-2 ">${plan}</div>
       </div>
     </div>
       `;
