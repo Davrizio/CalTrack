@@ -208,13 +208,21 @@ class CalorieTracker {
       const savedPlansEl = document.getElementById('past-results');
       const savedPlanEl = document.createElement('div');
       savedPlanEl.classList.add('col-md-2');
-      savedPlanEl.innerHTML = `
-      <div class="card bg-light">
-      <div class="card-body">
-        <div class="fs-1 bg-primary text-white text-center rounded-2 ">${plan}</div>
-      </div>
-    </div>
-      `;
+      if(plan <= this._calorieLimit) {
+        savedPlanEl.innerHTML = `
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="fs-1 bg-success text-white text-center rounded-2 ">${plan}</div>
+                </div>
+            </div>`
+      }else {
+        savedPlanEl.innerHTML = `
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="fs-1 bg-danger text-white text-center rounded-2 ">${plan}</div>
+                </div>
+            </div>`
+      };
       savedPlansEl.appendChild(savedPlanEl);
     }
   
