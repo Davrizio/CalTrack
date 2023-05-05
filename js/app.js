@@ -84,8 +84,9 @@ class CalorieTracker {
     }
 
     savePlan() {
-        Storage.saveCurrentPlan(this._totalCalories)
-        location.reload();
+      Storage.saveCurrentPlan(this._totalCalories);
+      Storage.clearAll()
+      location.reload();
     }
   
     // Private Methods //
