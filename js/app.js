@@ -348,10 +348,10 @@ class CalorieTracker {
     static saveCurrentPlan(plan) {
         const plans = Storage.getSavedPlans()
         if(plans.length >= 5){
-            plans.shift()
-            plans.push(plan)
+            plans.pop()
+            plans.unshift(plan)
         }else{
-            plans.push(plan)
+            plans.unshift(plan)
         }
         
         localStorage.setItem('savedPlan', JSON.stringify(plans))
