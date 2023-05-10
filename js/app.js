@@ -165,7 +165,7 @@ class CalorieTracker {
       mealEl.innerHTML = `
       <div class="card-body">
       <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mx-1">${meal.name}</h4>
+        <h4 class="mx-1">${meal.name.toUpperCase()}</h4>
         <div
           class="fs-1 bg-primary text-white text-center rounded-2 px-2 px-sm-5"
         >
@@ -189,7 +189,7 @@ class CalorieTracker {
       workoutEl.innerHTML = `
       <div class="card-body">
       <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mx-1">${workout.name}</h4>
+        <h4 class="mx-1">${workout.name.toUpperCase()}</h4>
         <div
           class="fs-1 bg-secondary text-white text-center rounded-2 px-2 px-sm-5"
         >
@@ -211,15 +211,15 @@ class CalorieTracker {
       savedPlanEl.classList.add('col-md-2');
       if(plan <= this._calorieLimit) {
         savedPlanEl.innerHTML = `
-            <div class="card bg-light">
-                <div class="card-body">
+            <div class="card bg-light ">
+                <div class="card-body bg-success">
                     <div class="fs-1 bg-success text-white text-center rounded-2 ">${plan}</div>
                 </div>
             </div>`
       }else {
         savedPlanEl.innerHTML = `
             <div class="card bg-light">
-                <div class="card-body">
+                <div class="card-body bg-danger">
                     <div class="fs-1 bg-danger text-white text-center rounded-2 ">${plan}</div>
                 </div>
             </div>`
