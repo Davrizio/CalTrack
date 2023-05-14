@@ -13,7 +13,7 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot](https://github.com/Davrizio/monocle/blob/main/images/thumb1.png)
+![screenshot](https://github.com/Davrizio/CalTrack/blob/main/thumb1.png)
 
 ## Key Features
 
